@@ -22,6 +22,7 @@ def calculate():
     try:
         file_obj = open("/Ronil_PV_dir/" + payload.get("file"))
         data_content = [i.strip().replace(" ", "").split(",") for i in file_obj.readlines()]
+        print(f"Data contents are: {data_content}")
         validate_file_contents(data_content)
         data_content = data_content[1:]
 

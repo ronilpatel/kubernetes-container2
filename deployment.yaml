@@ -33,10 +33,10 @@ spec:
             cpu: "500m"
             ephemeral-storage: "1Gi"
         volumeMounts:
-        - name: my-volume
+        - name: my-volume2
           mountPath: /Ronil_PV_dir
       volumes:
-      - name: my-volume
+      - name: my-volume2
         persistentVolumeClaim:
           claimName: my-pvc
 ---

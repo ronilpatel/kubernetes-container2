@@ -1,6 +1,7 @@
 import json
 import requests
 from os import path
+import logging
 
 from flask import Flask, request
 
@@ -20,15 +21,20 @@ def calculate():
     error_msg = ""
 
     try:
-        file_obj = open("/Ronil_PV_dir/" + payload.get("file"))
-        data_content = [i.strip().replace(" ", "").split(",") for i in file_obj.readlines()]
-        print(f"Data contents are: {data_content}")
-        validate_file_contents(data_content)
-        data_content = data_content[1:]
+        with open("/home/" + payload.get("file"), "r") as file_obj:
+            file_lines = file_obj.readlines()
+            logging.info(file_lines)
+            print(f"Read lines are: {file_lines}")
+            # file_obj = open("/Ronil_PV_dir/" + payload.get("file"))
+            data_content = [i.replace(" ", "").strip().split(",") for i in file_lines]
+            print(f"Data contents are: {data_content}")
+            logging.info(data_content)
+            validate_file_contents(data_content)
+            data_content = data_content[1:]
 
-        for row in data_content:
-            if row[0] == payload['product']:
-                total += int(row[1])
+            for row in data_content:
+                if row[0] == payload['product']:
+                    total += int(row[1])
     except:
         error_msg = "Input file not in CSV format."
 

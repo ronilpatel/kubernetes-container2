@@ -17,21 +17,13 @@ spec:
         # Replace $LOCATION with your Artifact Registry location (e.g., us-west1).
         # Replace $GCLOUD_PROJECT with your project ID.
         image: us-east1-docker.pkg.dev/assignment-kubernetes-390016/assignment-kubernetes/container2:latest
-        # This app listens on port 8080 for web traffic by default.
+        # This app listens on port 9090 for web traffic by default.
         ports:
-        - containerPort: 9090
+        - containerPort: 8080
         env:
           - name: PORT
-            value: "9090"
-        resources:
-          requests:
-            memory: "1Gi"
-            cpu: "500m"
-            ephemeral-storage: "1Gi"
-          limits:
-            memory: "1Gi"
-            cpu: "500m"
-            ephemeral-storage: "1Gi"
+            value: "8080"
+
         volumeMounts:
         - name: my-volume2
           mountPath: /Ronil_PV_dir
@@ -43,11 +35,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: hello2
+  name: hello2service
 spec:
   selector:
     app: hello2
   ports:
   - port: 80
-    targetPort: 9090
----
+    targetPort: 8080
+
+
+

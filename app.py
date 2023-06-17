@@ -20,21 +20,30 @@ def calculate():
     total = 0
     error_msg = ""
 
+    file_lines = []
+
     try:
-        with open("/home/" + payload.get("file"), "r") as file_obj:
+        with open("/Ronil_PV_dir/" + payload.get("file"), "r") as file_obj:
             file_lines = file_obj.readlines()
             logging.info(file_lines)
             print(f"Read lines are: {file_lines}")
-            # file_obj = open("/Ronil_PV_dir/" + payload.get("file"))
-            data_content = [i.replace(" ", "").strip().split(",") for i in file_lines]
-            print(f"Data contents are: {data_content}")
-            logging.info(data_content)
-            validate_file_contents(data_content)
-            data_content = data_content[1:]
+    except:
+        return json.loads(json.dumps({
+            "file": payload.get("file"),
+            "error": "Input file not able to read."
+        }))
 
-            for row in data_content:
-                if row[0] == payload['product']:
-                    total += int(row[1])
+    try:
+        # file_obj = open("/Ronil_PV_dir/" + payload.get("file"))
+        data_content = [i.replace(" ", "").strip().split(",") for i in file_lines]
+        print(f"Data contents are: {data_content}")
+        logging.info(data_content)
+        validate_file_contents(data_content)
+        data_content = data_content[1:]
+
+        for row in data_content:
+            if row[0] == payload['product']:
+                total += int(row[1])
     except:
         error_msg = "Input file not in CSV format."
 

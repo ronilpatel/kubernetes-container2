@@ -20,7 +20,7 @@ def calculate():
     error_msg = ""
 
     try:
-        file_obj = open("/home/" + payload.get("file"))
+        file_obj = open("/Ronil_PV_dir/" + payload.get("file"))
         # file_obj = open("/Ronil_PV_dir/" + payload.get("file"))
         data_content = [i.strip().split(",") for i in file_obj.readlines()]
         validate_file_contents(data_content)

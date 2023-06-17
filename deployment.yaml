@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: helloworld-gke2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hello2
+  template:
+    metadata:
+      labels:
+        app: hello2
+    spec:
+      containers:
+      - name: hello-app2
+        # Replace $LOCATION with your Artifact Registry location (e.g., us-west1).
+        # Replace $GCLOUD_PROJECT with your project ID.
+        image: us-east1-docker.pkg.dev/assignment-kubernetes-390016/assignment-kubernetes/container2:latest
+        # This app listens on port 8080 for web traffic by default.
+        ports:
+        - containerPort: 9090
+        env:
+          - name: PORT
+            value: "9090"
+        resources:
+          requests:
+            memory: "1Gi"
+            cpu: "500m"
+            ephemeral-storage: "1Gi"
+          limits:
+            memory: "1Gi"
+            cpu: "500m"
+            ephemeral-storage: "1Gi"
+        volumeMounts:
+        - name: my-volume
+          mountPath: /Ronil_PV_dir
+      volumes:
+      - name: my-volume
+        persistentVolumeClaim:
+          claimName: my-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hello2
+spec:
+  selector:
+    app: hello2
+  ports:
+  - port: 80
+    targetPort: 9090
+---

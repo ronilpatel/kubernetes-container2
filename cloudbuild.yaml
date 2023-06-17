@@ -1,0 +1,17 @@
+steps:
+# This step will build and push new container image to "google artifact registry(GAR)"
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'us-east1-docker.pkg.dev/assignment-kubernetes-390016/assignment-kubernetes/container2:latest', '.']
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'us-east1-docker.pkg.dev/assignment-kubernetes-390016/assignment-kubernetes/container2:latest']
+
+- name: 'gcr.io/cloud-builders/kubectl'
+  args:
+    - 'apply'
+    - '-f'
+    - 'deployment.yaml'
+  env:
+    - 'CLOUDSDK_COMPUTE_REGION=us-east1'
+    - 'CLOUDSDK_CONTAINER_CLUSTER=ronils-cluster'
+images:
+- 'us-east1-docker.pkg.dev/assignment-kubernetes-390016/assignment-kubernetes/container2:latest'

@@ -47,7 +47,6 @@ def calculate():
         print(f"Data contents are: {data_content}")
         result = validate_file_contents(data_content)
 
-
         data_content = data_content[1:]
 
         for row in data_content:
@@ -63,7 +62,7 @@ def calculate():
     if error_msg:
         response["error"] = error_msg
     else:
-        response["sum"] = total
+        response["sum"] = str(total)
 
     return json.loads(json.dumps(response))
 

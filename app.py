@@ -20,7 +20,6 @@ def calculate():
     total = 0
     error_msg = ""
 
-    file_lines = []
     try:
 
         file_obj = open("/Ronil_PV_dir/" + payload.get("file"), "r")

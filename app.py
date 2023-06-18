@@ -31,6 +31,7 @@ def calculate():
         result = validate_file_contents(data_content)
 
         data_content = data_content[1:]
+        print("......")
 
         for row in data_content:
             if row[0] == payload['product']:

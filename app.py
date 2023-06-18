@@ -10,8 +10,6 @@ app = Flask(__name__)
 
 
 def validate_file_contents(file_content):
-    # print(file_content[0][0])
-    # print(file_content[0][1])
     if file_content[0][0] != "product" or file_content[0][1] != "amount":
         raise
 

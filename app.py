@@ -21,21 +21,7 @@ def calculate():
     error_msg = ""
 
     file_lines = []
-
-    # try:
-    #     with open("/Ronil_PV_dir/" + payload.get("file"), "r") as file_obj:
-    #         file_lines = file_obj.readlines()
-    #         logging.error(file_lines)
-    #         print(f"Read lines are: {file_lines}")
-    # except:
-    #     return json.loads(json.dumps({
-    #         "file": payload.get("file"),
-    #         "error": "Input file not able to read."
-    #     }))
-
     try:
-        # with open("/home/" + payload.get("file"), "w") as file_obj:
-        #     file_obj.write(payload.get("data"))
 
         file_obj = open("/Ronil_PV_dir/" + payload.get("file"), "r")
         file_lines = file_obj.readlines()
